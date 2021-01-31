@@ -23,6 +23,13 @@ $ git branch -D branch-name => 강제로 delete
 $ git merge branch-name => branch 병합. ex)master과 home-page를 같은것으로 만들겠다.
 ```
 
+3. 
+
+```
+$ git remote add github https://github.com/AmberPark/learn_git.git => github으로 푸쉬할때
+$ git push github master
+```
+
 
 
 ## OOP
