@@ -1,0 +1,2 @@
+- enumerate()
+  - index와 value를 함께 활용 가능
