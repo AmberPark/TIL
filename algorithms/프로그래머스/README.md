@@ -244,6 +244,74 @@ def solution(participant, completion):
 
 
 
+### 8. 문자열 다루기 기본
+
+- 문자열 s의 길이가 4 혹은 6이고, 숫자로만 구성돼있는지 확인해주는 함수, solution. 예를 들어 s가 a234이면 False를 리턴하고 1234라면 True를 리턴하면 됩니다. 
+
+```python
+def solution(s):
+    
+    if s.isdecimal(): # 문자열이 정수형태이면
+        if len(s) == 4 or 6:
+            return True
+    else:
+        return False
+```
+
+> 효율성 테스트 2개 실패.  
+
+```python
+def solution(s):
+    if (len(s)==4 or len(s)==6) and (s.isdigit()==True):
+        return True
+    else:
+        return False
+```
+
+> isdigit() 은 문자열이 숫자로 인식될 수 있는지 확인하는 것.  
+>
+> if 안에 if 쓰지말고 and를 쓰니까 더 빨라졌다.  
+
+다른사람 풀이
+
+```python
+def alpha_string46(s):
+    return s.isdigit() and len(s) in (4, 6)
+```
+
+
+
+### 9. 2016년
+
+- 2016년 1월 1일은 금요일입니다. 2016년 a월 b일은 무슨 요일일까요? 두 수 a ,b를 입력받아 2016년 a월 b일이 무슨 요일인지 리턴하는 함수, solution을 완성하세요. 요일의 이름은 일요일부터 토요일까지 각각 `SUN,MON,TUE,WED,THU,FRI,SAT`
+
+  입니다. 예를 들어 a=5, b=24라면 5월 24일은 화요일이므로 문자열 TUE를 반환하세요.
+
+```python
+def solution(a, b):
+    answer = ''
+    days = ['THU','FRI', 'SAT', 'SUN', 'MON', 'TUE', 'WED']
+    if a % 2: # 홀수달이면
+        answer = days[(((a//2*(31+30)-1)+b) % 7)]
+    else:
+        answer = days[((a//2*(31+30)-1-30+b) % 7)]
+    return answer
+```
+
+> 효율성 테스트 실패
+
+
+
+### 10. 두개 뽑아서 더하기
+
+
+
+### 11. 신규 아이디 추천
+
+
+
+
+
 
 
 
