@@ -221,7 +221,7 @@ for i in range(1, T+1):
         cnt_lst[box[j]] += 1
 
     max_v = max_num = 0
-    for k in range(len(cnt_lst)-1, -1, -1):
+    for k in range(len(cnt_lst)-1, -1, -1): # 카드 장수가 같으면 숫자가 큰 쪽을 출력해야 하므로
         if cnt_lst[k] > max_v:
             max_v = cnt_lst[k]
             max_num = k
@@ -264,11 +264,189 @@ for tc in range(1, T+1):
 
 ```
 
+```python
+# 다른방법
+T = int(input())
+for tc in range(1, T+1):
+    N, M = map(int, input().split())
+    box = list(map(int, input().split()))
+    max_value = min_value = my_sum(box[:M])
+    # 중복 연산을 피하자
+
+    # 첫구간 구해놓기
+    small_sum = 0
+    for i in range(M):
+        small_sum += box[i]
+
+    for i in range(M, N):
+        small_sum = small_sum + box[i] - box[i - M]
+
+        if max_value < small_sum:
+            max_value = small_sum
+        if min_value > small_sum:
+            min_value = small_sum
+    print('#{} {}'.format(tc, max_value - min_value))
+```
+
 
 
 ### 4831 전기버스
 
 ```python
+T = int(input())
+for tc in range(1, T+1):
+    K, N, M = map(int, input().split()) # K: 이동할 수 있는 정류장 개수, N : 마지막 정류장 위치, M : 충전소 개수
+    box = list(map(int, input().split())) # 충전기가 설치된 정류장 리스트
+    bus_stop = [0] * (N+1)
+    for i in box:
+        bus_stop[i] = 1 # 충전소 표시
+
+    bus = 0 # 버스 위치
+    ans = 0 # 충전 횟수
+
+    while True:
+        bus += K # 버스가 이동할 수 있는 만큼 이동.
+        if bus >= N: break # 종점에 도착하거나 더 나아가면 종료.
+
+        for i in range(bus, bus-K, -1): # 최대한 이동 해놓고 한칸씩 뒤로 오면서 확인
+            if bus_stop[i] == 1:
+                ans += 1
+                bus = i
+                break
+        else: # 충전기를 못찾았을때
+            ans = 0
+            break
+
+    print('#{} {}'.format(tc, ans))
 
 ```
+
+```python
+T = int(input())
+for tc in range(1, T+1):
+    K, N, M = map(int, input().split()) # K: 이동할 수 있는 정류장 개수, N : 마지막 정류장 위치, M : 충전소 개수
+    box = list(map(int, input().split())) # 충전기가 설치된 정류장 리스트
+    ans = 0
+
+    box = [0] + box + [N] # = box.inser(0,0) , box.append(N)
+    last = 0
+
+    for i in range(1, M+2): # 출발점, 도착지 두칸 늘려놨으니까 M+2
+        if box[i] - box[i-1] > K: # 차이가 K 보다 크면 아예 못가니까 충전 횟수 0
+            ans = 0
+            break # 끝나는거니까 break
+
+            # 갈수 있다면 아무 작업 X, 갈수 없다면 내 바로 직전 충전소로 위치 옮기고 횟수 1 증가
+        if box[i] > last + K:
+            last = box[i-1]
+            ans += 1
+
+    print('#{} {}'.format(tc, ans))
+```
+
+> 밑에 풀이가 내가 생각했던 로직! 로직은 생각했는데 코드를 구현을 잘 못하고 있었는데 수업 들으면서 이해했다.
+
+
+
+### 6485 삼성시 버스노선
+
+```python
+# T = int(input())
+# for tc in range(1, T+1):
+#     N = int(input())
+#     AB_all = []
+#     for i in range(N):
+#         A, B = map(int, input().split())
+#         AB_all.append(list(range(A, B+1))) # 마지막으로 인풋값만 리스트돼서 값이 안나옴.. 인풋 값 다 리스트로 만들기는 못하는건가
+#     P = int(input())
+#     bus_stop_num = []
+#     for j in range(P):
+#         C = int(input())
+#         bus_stop_num.append(C) # 버정 번호 리스트
+#         cnt = [0] * P # 같은거 카운트할꺼
+#         for k in AB_all:
+#             for i in k:
+#                 for h in bus_stop_num:
+#                     if i == h:
+#                         cnt[bus_stop_num.index(i)] += 1
+#
+#     print('#{}'.format(tc), *cnt)
+```
+
+> 처음에 생각했던 로직. 문제를 너무 어렵게 생각했다. 그냥 C번 정류장에 있는거 가져오면 되는거였음.
+
+```python
+T = int(input())
+for tc in range(1, T+1):
+    N = int(input())
+
+    bus_stop = [0] * 5001 # 초기화 위치!!! 항상 잘 생각하기
+    for i in range(N):
+        A, B = map(int, input().split())
+
+        for i in range(A, B+1):
+            bus_stop[i] += 1
+
+    P = int(input())
+    cnt = []
+    for i in range(P):
+        C = int(input())
+        cnt.append(bus_stop[C])
+
+    print('#{}'.format(tc), *cnt)
+```
+
+
+
+### 1966 숫자정렬
+
+```python
+def BubbleSort(arr):
+    for i in range(len(arr)-1, -1,-1):
+        for j in range(0, i):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+T = int(input())
+for tc in range(1, T+1):
+    N = int(input())
+    numbers = list(map(int, input().split()))
+    BubbleSort(numbers)
+
+    print('#{}'.format(tc), *numbers)
+```
+
+
+
+### 1959 두개의 숫자열
+
+```python
+def check(long, short):
+    max_value = -987654321
+    for i in range(len(long)-len(short)+1):
+        result = 0
+        for j in range(len(short)):
+            result += long[i+j]*short[j]
+        if max_value < result:
+            max_value = result
+    return  max_value
+
+T = int(input())
+for tc in range(1, T+1):
+    N, M = map(int, input().split())
+    A = list(map(int, input().split()))
+    B = list(map(int, input().split()))
+
+    if N > M:
+        ans = check(A, B)
+    else:
+        ans = check(B, A)
+
+    print('#{} {}'.format(tc, ans))
+```
+
+
+
+### 4836 색칠하기
 
