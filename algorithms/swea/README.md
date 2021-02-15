@@ -128,7 +128,59 @@ for k in range(1, T+1):
             box[j] = i # 그 요소는 i로 바꾸기
 
 
-    print('#{}'.format(k), *box) # 검색해보고 알았다!! 리스트 그냥 1 2 2 2 0 이런식으로 나타내는 방법 *list ! 
+    print('#{}'.format(k), *box) # 검색해보고 알았다!! 리스트 그냥 1 2 2 2 0 이런식으로 나타내는 방법 *list ! (언퍀)
+```
+
+
+
+### 1209 (21.02.15)
+
+```python
+N = 100
+for tc in range(1, 11):
+    t = int(input())
+    arr = [list(map(int, input().split())) for _ in range(N)]
+    ss = []
+
+    # 행
+    for i in range(N):
+        r_sum = 0
+        for j in range(N):
+            r_sum += arr[i][j]
+            ss.append(r_sum)
+
+    # 열
+    for j in range(N):
+        c_sum = 0
+        for i in range(N):
+            c_sum += arr[i][j]
+            ss.append(c_sum)
+
+    # 대각선
+    d_sum = 0
+    for i in range(N):
+        d_sum += arr[i][i]
+        ss.append(d_sum)
+
+    maxx = -987654321
+    for i in range(len(ss)):
+        if maxx < ss[i]:
+            maxx = ss[i]
+
+    print('#{} {}'.format(tc, maxx))
+
+```
+
+> 이 문제는 그래도 쉬웠던 편!! 후딱 풀었다! 처음에 t를 전체 포문 밖에 잡아서 (이놈의 습관;;) 출력이 제대로 안나왔었는데 문제 다시 제대로 읽고 포문 안에 t잡고 출력 했더니 제대로 나왔당 ㅎㅎ
+
+
+
+### 1954 달팽이 숫자
+
+너무 어려웟음 ㅜㅜ
+
+```python
+
 ```
 
 
