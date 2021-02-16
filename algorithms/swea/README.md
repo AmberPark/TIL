@@ -173,6 +173,49 @@ for tc in range(1, 11):
 
 > 이 문제는 그래도 쉬웠던 편!! 후딱 풀었다! 처음에 t를 전체 포문 밖에 잡아서 (이놈의 습관;;) 출력이 제대로 안나왔었는데 문제 다시 제대로 읽고 포문 안에 t잡고 출력 했더니 제대로 나왔당 ㅎㅎ
 
+```python
+N = 100
+for tc in range(1, 11):
+    t = int(input())
+    arr = [list(map(int, input().split())) for _ in range(N)]
+    ss = []
+
+    # 행
+    for i in range(N):
+        r_sum = 0
+        for j in range(N):
+            r_sum += arr[i][j]
+            ss.append(r_sum)
+
+    # 열
+    for j in range(N):
+        c_sum = 0
+        for i in range(N):
+            c_sum += arr[i][j]
+            ss.append(c_sum)
+
+    # 우하대각선
+    d_sum = 0
+    for i in range(N):
+        d_sum += arr[i][i]
+        ss.append(d_sum)
+
+    # 좌하 대각선
+    dd_sum = 0
+    for i in range(N):
+        dd_sum += arr[i][99-i]
+        ss.append(dd_sum)
+
+    maxx = -987654321
+    for i in range(len(ss)):
+        if maxx < ss[i]:
+            maxx = ss[i]
+
+    print('#{} {}'.format(tc, maxx))
+```
+
+> 대각선 하나를 안했었음 ㅋㅋㅋ 채점 테스트 케이스가 허술해서 pass 했나보다 ㅎㅎ 다시 풀었당
+
 
 
 ### 1954 달팽이 숫자
@@ -184,6 +227,60 @@ for tc in range(1, 11):
 ```
 
 
+
+### 1210 Ladder
+
+```python
+for tc in range(1, 11):
+    N = int(input())
+    ladder = [list(map(int, input().split())) for _ in range(100)]
+    # 좌 우 상
+    dr = [0, 0, -1]
+    dc = [-1, 1, 0]
+    c = 0
+    for i in range(100):
+        if ladder[99][i] == 2: # 2 인 c 찾기
+            c = i
+            break
+
+    # 밑에서 올라오면서 찾기
+    r = 99
+    col = c
+    dirr = 2
+    while r >= 0:
+        if dirr == 2: # 방향 위쪽일 때
+            if 0 <= col-1 < 100 and ladder[r][col-1] == 1: # left
+                r += dr[0]
+                col += dc[0]
+                dirr = 0 # 방향 왼쪽
+            elif 0 <= col+1 < 100 and ladder[r][col+1] == 1: # right
+                r += dr[1]
+                col += dc[1]
+                dirr = 1 # 방향 오른쪽
+            else: # 그냥 위로
+                r += dr[2]
+                col += dc[2]
+
+        elif dirr == 0: # 방향 왼쪽일때
+            if 0<= r - 1 <= 100 and ladder[r-1][col] == 1:
+                r += dr[2]
+                col += dc[2]
+                dirr = 2 # 방향 다시 위
+            else: # 없으면 쭉 왼쪽으로
+                r += dr[0]
+                col += dc[0]
+
+        else: # 방향 오른쪽 일때
+            if 0 <= r-1 <= 100 and ladder[r-1][col] == 1:
+                r += dr[2]
+                col += dc[2]
+                dirr = 2
+            else: # 없으면 쭉 오른쪽으로
+                r += dr[1]
+                col += dc[1]
+
+    print('#{} {}'.format(tc, col))
+```
 
 
 
@@ -501,4 +598,161 @@ for tc in range(1, T+1):
 
 
 ### 4836 색칠하기
+
+```python
+T = int(input())
+for tc in range(1, T+1):
+    N = int(input())
+    co_plane = [[0] * 10 for _ in range(10)] # 평면좌표
+    color = []
+    cnt = 0 # 전체 좌표 에서 cnt 구해야 하니까 cnt 초기화는 여기서 !!
+    for i in range(N):
+        color.append(list(map(int, input().split())))
+
+        for j in range(color[i][0], color[i][2] + 1): # x 좌표
+            for k in range(color[i][1], color[i][3] + 1): # y 좌표
+                if color[i][4] == 1: # 빨강이면
+                    co_plane[j][k] += 1
+
+                elif color[i][4] == 2: # 파랑이면
+                    co_plane[j][k] += 10
+
+                if co_plane[j][k] % 11 == 0:
+                    cnt += 1
+
+
+    print('#{} {}'.format(tc, cnt))
+```
+
+
+
+### 4839 이진탐색
+
+```python
+def bi_search(lst,key):
+    left = 0
+    right = len(lst)-1
+    cnt = 0
+    while left <= right:
+        middle = (left+right)//2
+        if lst[middle] == key:
+            break
+        elif key < lst[middle]: # if 말고 elif ! 아니라면 이어야 하니까
+            right = middle
+            cnt += 1
+        elif key > lst[middle]:
+            left = middle
+            cnt += 1
+    return cnt
+
+T = int(input())
+for tc in range(1, T+1):
+    P, Pa, Pb = map(int, input().split())
+
+    book = [0] * P
+    for i in range(0, P):
+        book[i] = i+1
+
+    if bi_search(book, Pa) < bi_search(book, Pb):
+        ans = 'A'
+    if bi_search(book, Pa) == bi_search(book, Pb):
+        ans = 0
+    if bi_search(book, Pa) > bi_search(book, Pb):
+        ans = 'B'
+
+
+    print('#{} {}'.format(tc, ans))
+```
+
+
+
+### 4837 부분집합의 합
+
+```python
+def get_sum(lst):
+    total = 0
+    for i in range(len(lst)):
+        total += lst[i]
+    return total
+
+T = int(input())
+A = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+for tc in range(1, T+1):
+    N, K = map(int, input().split())
+    cnt = 0
+    for i in range(1 << len(A)):
+        arr = []
+
+        for j in range(len(A)):
+            if i & (1 << j):
+                subset = A[j]
+                arr.append(subset)  # arr 은 부분집합
+
+        if len(arr) == N and get_sum(arr) == K: # 부분집합 중 N개의 원소 갖고 있고 합이 K 이면
+                cnt += 1
+
+    print('#{} {}'.format(tc, cnt))
+
+```
+
+
+
+### 4838 특별한 정렬
+
+```python
+T = int(input())
+for tc in range(1, T+1):
+    N = int(input())
+    lst = list(map(int, input().split()))
+    # 정렬
+    for i in range(len(lst)-1):
+        min_idx = i
+        for j in range(i+1, len(lst)):
+            if lst[j] < lst[min_idx]:
+                min_idx = j
+        tmp = lst[i]
+        lst[i] = lst[min_idx]
+        lst[min_idx] = tmp
+
+    ans = [0] * len(lst)
+    for i in range(len(lst)):
+        if i % 2: # 홀수 인덱스에 lst 인덱스 0, 1, 2 이순서로 온다.
+            ans[i] = lst[i//2]
+
+        elif i % 2 == 0: # 짝수 인덱스에는 list 인덱스의 len(lst)-1, len(lst)-2, len(lst)-3 이순서로 온다.
+            ans[i] = lst[len(lst)-(i//2+1)]
+
+    print('#{}'.format(tc), *ans[:10]) # 10개만 출력하라는 문제이므로.
+```
+
+
+
+### 1979 어디에 단어가 들어갈 수 있을까
+
+```python
+
+```
+
+
+
+### 1966 숫자정렬
+
+```python
+T = int(input())
+for tc in range(1, T+1):
+    N = int(input())
+    box = list(map(int, input().split()))
+    # 선택정렬
+    for i in range(len(box)-1):
+        min_idx = i
+        for j in range(i+1, len(box)):
+            if box[min_idx] > box[j]:
+                min_idx = j
+        tmp = box[i]
+        box[i] = box[min_idx]
+        box[min_idx] = tmp
+
+    print('#{}'.format(tc), *box)
+```
 
