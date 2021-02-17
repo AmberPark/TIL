@@ -76,7 +76,7 @@ for tc in range(1, T+1):
 
 
 
-### 1208
+### 1208 V 다시풀기
 
 - 평탄화
 
@@ -218,7 +218,7 @@ for tc in range(1, 11):
 
 
 
-### 1954 달팽이 숫자
+### 1954 달팽이 숫자V
 
 너무 어려웟음 ㅜㅜ
 
@@ -228,7 +228,7 @@ for tc in range(1, 11):
 
 
 
-### 1210 Ladder
+### 1210 Ladder (21.02.16)
 
 ```python
 for tc in range(1, 11):
@@ -283,6 +283,46 @@ for tc in range(1, 11):
 ```
 
 
+
+### 1221 GNS(21.02.17)
+
+입력 받는게 헷갈렷다
+
+```python
+def BubbleSort(lst):
+    for i in range(len(lst)-1, 0, -1):
+        for j in range(0, i):
+            if lst[j] > lst[j+1]:
+                lst[j], lst[j+1] = lst[j+1], lst[j]
+    return lst
+
+T = int(input())
+# 행성에서 쓰이는 숫자에 real 숫자 
+numbers = {"ZRO": 0, "ONE": 1, "TWO": 2, "THR": 3, "FOR": 4, "FIV": 5, "SIX": 6, "SVN": 7, "EGT": 8, "NIN": 9}
+for tc in range(1, T+1):
+    test_case = input()
+    strings = list(map(str, input().split()))
+    result = []
+
+    for i in range(len(strings)):
+        for key, value in numbers.items(): # 입력받은 문자열 리스트 각각을 숫자로 바꾸기
+            if strings[i] == key:
+                strings[i] = value
+                result.append(value)
+
+    BubbleSort(result) # 정렬하고
+    for i in range(len(result)):
+        for k, v in numbers.items():
+            if v == result[i]:
+                result[i] = k # 다시 문자열로 바꾸기
+
+    print('#{}'.format(tc))
+    print(*result)
+```
+
+> 출력 엄~청 오래걸림ㅋㅋ그래도 pass~!! 첨에 입력받는거 헷갈려서 #입력줄 무시하고 썼다가 왜안되지? 이럼서 바보같이 있었음.
+>
+> #있는 인풋 줄은 신경 안써도 된가 그냥 input으로 넣었다. 
 
 
 
@@ -728,7 +768,7 @@ for tc in range(1, T+1):
 
 
 
-### 1979 어디에 단어가 들어갈 수 있을까
+### 1979 어디에 단어가 들어갈 수 있을까V
 
 ```python
 
@@ -756,3 +796,72 @@ for tc in range(1, T+1):
     print('#{}'.format(tc), *box)
 ```
 
+### 2001 파리퇴치
+
+처음에 접근한 방법. 답이 안나옴.
+
+```python
+def get_sum(lst):
+    total = 0
+    for i in range(len(lst)):
+        total += lst[i]
+    return total
+
+T = int(input())
+for tc in range(1, T+1):
+    N, M = map(int, input().split())
+    flies = [list(map(int, input().split())) for _ in range(N)]
+    ss = []
+    s = []
+    maxx = -987654321
+
+    for i in range(N-M+1):
+        for j in range(N-M+1):
+            for k in range(M):
+                for l in range(M):
+                    s.append(flies[j+k][i+l]) # 쭉 나열 된 리스트
+
+    for i in range(len(s)//M):
+        ch_ = s[i+(M-2)*i:i+(M-2)*i+M+1] # M 개 씩 쪼개기
+        
+        if maxx <get_sum(ch_):
+            maxx = get_sum(ch_)
+
+
+    print('#{} {}'.format(tc, maxx))
+
+```
+
+이제 제대로 출력!! M개씩 쪼개면 안되고 M*M개씩 쪼갰어야 했다. 
+```python
+def get_sum(lst):
+    total = 0
+    for i in range(len(lst)):
+        total += lst[i]
+    return total
+
+T = int(input())
+for tc in range(1, T+1):
+    N, M = map(int, input().split())
+    flies = [list(map(int, input().split())) for _ in range(N)]
+    ss = []
+    s = []
+    maxx = -987654321
+
+    for i in range(N-M+1):
+        for j in range(N-M+1):
+            for k in range(M):
+                for l in range(M):
+                    s.append(flies[j+k][i+l]) # 쭉 나열 된 리스트
+    # print(s)
+    for i in range(len(s)//M):
+        ch_ = s[i+(M*M-1)*i:i+(M*M-1)*i+M*M] # M*M 개 씩 쪼개기
+
+        if maxx <get_sum(ch_):
+            maxx = get_sum(ch_)
+
+
+    print('#{} {}'.format(tc, maxx))
+```
+
+> 뭔가 답이 잘 안나온다 싶을때 print를 찍어서 확인해보니까 확실히 풀기가 쉽다. 좋은 습관이 생긴듯!
