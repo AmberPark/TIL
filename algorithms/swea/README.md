@@ -326,6 +326,62 @@ for tc in range(1, T+1):
 
 
 
+### 1216 회문2
+
+```python
+# 회문 있는지 확인하고 있는 회문들 중 최대 길이 리턴하는 함수
+def check(lst):
+    length = []
+    for p in range(1, len(lst)+1): # 회문 길이
+        for i in range(len(lst)-p+1):
+            if lst[i:i+p] == lst[i:i+p][::-1]:
+                length.append(len(lst[i:i+p]))
+                break # 반복되는 수 없애기 위해
+    maxx = length[0]
+    for i in range(len(length)):
+        if maxx < length[i]:
+            maxx = length[i]
+    return maxx
+
+for tc in range(1, 11):
+    T = int(input())
+    plane = [list(map(str, input())) for _ in range(100)]
+
+    # 가로
+    lst = []
+    for p in plane:
+        lst.append(check(p)) # 한 줄 최대 길이들을 하나씩 구하기
+        maxx1 = lst[0]
+        for i in range(len(lst)):
+            if maxx1 < lst[i]:
+                maxx1 = lst[i]
+
+    # sero
+    sero = []
+    for j in range(100):
+        for i in range(100):
+            sero.append(plane[i][j])
+    new_sero = [sero[i*100:i*100+100] for i in range(100)] # 세로로 찢은 이차원 리스트
+    lst2 = []
+    for new in new_sero:
+        lst2.append(check(new))
+        maxx2 = lst2[0]
+        for i in range(len(lst2)):
+            if maxx2 < lst2[i]:
+                maxx2 = lst2[i]
+
+    if maxx1 < maxx2:
+        result = maxx2
+    else:
+        result = maxx1
+
+    print('#{} {}'.format(tc, result))
+```
+
+
+
+
+
 
 
 ## Studying individually
@@ -865,3 +921,88 @@ for tc in range(1, T+1):
 ```
 
 > 뭔가 답이 잘 안나온다 싶을때 print를 찍어서 확인해보니까 확실히 풀기가 쉽다. 좋은 습관이 생긴듯!
+
+
+
+### 4864 문자열 비교
+
+- 쉬운 방법과 패턴 체크 방법 두가지
+
+```python
+T = int(input())
+for tc in range(1, T+1):
+    find = input()
+    string = input()
+    # 첫번째 방법
+    # if find in string:
+    #     ans = 1
+    # else:
+    #     ans = 0
+    #
+    # print('#{} {}'.format(tc, ans))
+
+    # 두번째 방법 (pattern check)
+    s = 0 # string index
+    f = 0 # find index
+    while f < len(find) and s < len(string):
+        if string[s] != find[f]:
+            s -= f
+            f = -1
+        s += 1
+        f += 1
+
+    if f == len(find):
+        ans = 1
+    else:
+        ans = 0
+
+
+    print('#{} {}'.format(tc, ans))
+```
+
+
+
+### 4861 회문
+
+- N개의 문자열을 가진 N줄의 입력값!!!
+
+```python
+# 리스트 안에 회문 있는지 확인하고 그 회문을 반환하는 함수
+def check(lst, length): # length 는 회문 길이
+    for i in range(len(lst)-length+1):
+        if lst[i:i+length] == lst[i:i+length][::-1]:
+            return lst[i:i+length]
+
+T = int(input())
+for tc in range(1, T+1):
+    N, M = map(int, input().split())
+    box = [list(map(str, input())) for _ in range(N)]
+
+    # garo
+    for string in box:
+        ans = check(string, M)
+        if ans: # 값이 있으면
+            result = ans
+
+    # sero
+    # 세로줄 리스트로 하나씩 만들기
+    sero_lst = []
+    for j in range(N):
+        for i in range(N):
+            sero_lst.append(box[i][j])
+
+    new_sero = [sero_lst[i*N:i*N+N] for i in range(N)]
+    # print(new_sero)
+    for lst in new_sero:
+        ans_s = check(lst, M)
+
+        if ans_s:
+            result = ans_s
+
+    print('#{}'.format(tc), end=' ')
+    print(''.join(result))
+```
+
+> 처음에 회문 길이가 다 N 일 꺼라 생각하고 좀 헤맸다.
+>
+> 회문 판별은 길이 M만큼 자른 다음에 그거랑 그거 뒤집은거랑 같은지 확인하면 됨!!
