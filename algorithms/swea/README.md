@@ -824,11 +824,48 @@ for tc in range(1, T+1):
 
 
 
-### 1979 어디에 단어가 들어갈 수 있을까V
+### 1979 어디에 단어가 들어갈 수 있을까
+
+D2인데 이렇게 어렵다고...? 내가 어렵게 생각한건가
+
+- 처음에 1 이면 하나씩 카운팅 하고 그게 K가 되면 cnt += 1 씩 하는걸로 하려고 했는데 반례가 너무 많았다. 
+- 그래서 일단 인덱스 오류가 나지 않도록 표 테두리를 벽으로 감싸줬다.
+- 그리고 세로 구할때 인덱스로 구하려고 하다가 결국 세로 리스트를 새로 만들었다 ^-^
 
 ```python
+T = int(input())
+for tc in range(1, T + 1):
+    N, K = map(int, input().split())
+    puzzle = [[0] * (N+2)] + [[0] + list(map(int, input().split())) + [0] for _ in range(N)] + [[0] * (N+2)]# 인덱스 에러나는거 막기 위해 테두리 감싸기
+    # print(puzzle)
+    # 가로
+    cnt1 = 0
 
+    for i in range(1, N+1):
+        for j in range(1, N+1-K+1):
+            if puzzle[i][j:j+K] == [1] * K and puzzle[i][j-1] == 0 and puzzle[i][j+K] == 0:
+                cnt1 += 1
+
+    # 세로(얘는 리스트형식 아니니까 슬라이싱으로 못구함)
+    # 세로 이차원 리스트 새로 만들기..
+    sero = []
+    for j in range(N+2):
+        for i in range(N+2):
+            sero.append(puzzle[i][j])
+
+    # (N+2) * (N+2) 로 쪼개기
+    sero_lst = [sero[(N+2)*i:(N+2)*i+(N+2)] for i in range(N+2)]
+
+    cnt2 = 0
+    for i in range(N+2):
+        for j in range(N+2):
+            if sero_lst[i][j:j+K] == [1] * K and sero_lst[i][j-1] == 0 and sero_lst[i][j+K] == 0:
+                cnt2 += 1
+
+    print('#{} {}'.format(tc, cnt1+cnt2))
 ```
+
+> D2인데 시간이 너무 걸려서 좀 속상했다 ^^
 
 
 
@@ -1006,3 +1043,79 @@ for tc in range(1, T+1):
 > 처음에 회문 길이가 다 N 일 꺼라 생각하고 좀 헤맸다.
 >
 > 회문 판별은 길이 M만큼 자른 다음에 그거랑 그거 뒤집은거랑 같은지 확인하면 됨!!
+
+
+
+### 5356 의석이의 세로로 V
+
+```python
+T = int(input())
+for tc in range(1, T+1):
+    words = [list(map(str, input())) for _ in range(5)]
+    sero = []
+    for j in range(15):
+        for i in range(len(words)):
+            if len(words[i]) > j:
+                sero.append(words[i][j])
+            else: # j 가 리스트 길이보다 커지면 건너뛰고 쭉 진행
+                continue
+
+    print('#{}'.format(tc), end=' ')
+    print(''.join(sero))
+
+```
+
+
+
+### 3143 가장 빠른 문자열
+
+- 꽤 오래걸린 문제!! 다양한 반례들이 있어서 fail 많이했다..  쉬워보이는데 오래걸려서 자괴감이 많이 들었다. 역시 D4인 이유가 있나보다. 
+- 첨에 for 문으로 했는데 답이 안나와서 while문으로 돌렸다.
+
+```python
+# for 문으로 시도한거.
+T = int(input())
+for tc in range(1, T+1):
+    A, B = input().split()
+    cnt = 0 # 패턴 확인 횟수
+    ans = 0
+        for i in range(len(A) - len(B) +1):
+        if A[i:i+len(B)] == B:
+            cnt += 1
+            # ans -= 1
+        if A[i:i+len(B)] != B and A[i+1] != B[len(B)-1]:
+            ans += 1
+    result = ans + cnt
+
+    print('#{} {}'.format(tc, result))
+         
+```
+
+> 이게 i 가 패턴 확인하고 키 누른 자리가 있는데 다시 거기를 도니까 답이 안나오는 반례들이 많았다. 
+>
+> 겹치는 부분을 어떻게 넘기지 생각하다가 그냥 while 문 써보자!! 해서 썼다. 
+
+
+
+- 답	
+
+```python
+T = int(input())
+for tc in range(1, T+1):
+    A, B = input().split()
+    cnt = 0 # 패턴 확인 횟수
+    ans = 0
+    i = 0
+    while i < len(A):
+        if A[i:i+len(B)] == B:
+            cnt += 1
+            i += len(B) # 패턴 확인을 해서 cnt 가 하나가 올라가면 이제 그 패턴 다음 인덱스 부터 확인을 해야하니까
+        else:
+            ans += 1
+            i += 1
+    result = ans + cnt
+    print('#{} {}'.format(tc, result))
+
+```
+
+> 패턴 확인을 해서 cnt 가 하나가 올라가면 이제 그 패턴 다음 인덱스 부터 확인을 해야하니까  `i += len(B)` 이렇게 해주기!
