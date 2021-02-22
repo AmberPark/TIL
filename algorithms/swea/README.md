@@ -2,9 +2,11 @@
 
 코딩 체력 키우기!!
 
+V -> 다시풀어볼것
+
 ## 과제
 
-### 1206번(21.02.08)
+### 1206번(21.02.08) V
 
 - 조망권 확보한 세대 구하기
 
@@ -380,7 +382,48 @@ for tc in range(1, 11):
 
 
 
+### 2005 파스칼
 
+- 첫 코드 런타임 에러 떴다..
+
+```python
+T = int(input())
+for tc in range(1, T+1):
+    N = int(input())
+    P = [[1] for _ in range(N)]
+    P[1] = [1, 1] # 두번째 줄 까지는 다 동일하니까
+    for i in range(2, N): # 3번째 줄 부터
+        for j in range(1, i):
+            P[i].append(P[i-1][j-1]+P[i-1][j])
+        P[i].append(1)
+
+    print('#{}'.format(tc))
+    for i in range(N):
+        print(*P[i])
+```
+
+- 다시 작성. 이건 패스
+
+```python
+T = int(input())
+for tc in range(1, T+1):
+    N = int(input())    
+    P = [[1]]
+    for i in range(1, N):
+        row = [1] # 첫번째는 다 1이니까 
+        for j in range(len(P[-1])-1):
+            summ = 0
+            for k in range(2):
+                summ += P[-1][j+k]
+            row.append(summ)
+        row.append(1)
+        P.append(row)
+    print('#{}'.format(tc))
+    for i in range(N):
+        print(*P[i])
+```
+
+> 코드가 짧다고 다 좋은 건 아니구나
 
 
 
@@ -1119,3 +1162,63 @@ for tc in range(1, T+1):
 ```
 
 > 패턴 확인을 해서 cnt 가 하나가 올라가면 이제 그 패턴 다음 인덱스 부터 확인을 해야하니까  `i += len(B)` 이렇게 해주기!
+
+
+
+### 4047 영준이
+
+```python
+T = int(input())
+for tc in range(1, T+1):
+    card = input()
+    s = []
+    d = []
+    h = []
+    c = []
+    p = True
+    for i in range(len(card)-2):
+        if card[i] == 'S': # 카드 종류가 S 이면 
+            s.append(card[i+1:i+3]) # s 리스트에 카드 번호 잘라서 넣기
+            if len(s) > 1: # 카드가 두개 이상일때
+                for j in range(len(s)):
+                    if s.count(s[j]) > 1: # 그 요소 카운트 값이 두개 이상이면, 즉 같은 것이 있으면 
+                        print('#{}'.format(tc), end=' ')
+                        print('ERROR') # 에러 프린트
+                        p = False
+                        break
+
+        elif card[i] == 'D': # 위와 마찬가지
+            d.append(card[i+1:i+3])
+            if len(d) > 1:
+                for j in range(len(d)):
+                    if d.count(d[j]) > 1:
+                        print('#{}'.format(tc), end=' ')
+                        print('ERROR')
+                        p = False
+                        break
+
+        elif card[i] == 'H':
+            h.append(card[i+1:i+3])
+            if len(h) > 1:
+                for j in range(len(h)):
+                    if h.count(h[j]) > 1:
+                        print('#{}'.format(tc), end=' ')
+                        print('ERROR')
+                        p = False
+                        break
+
+        elif card[i] == 'C':
+            c.append(card[i+1:i+3])
+            if len(c) > 1:
+                for j in range(len(c)):
+                    if c.count(c[j]) > 1:
+                        print('#{}'.format(tc), end=' ')
+                        print('ERROR')
+                        p = False
+                        break
+
+    if p: # p가 True 일때만 출력하기
+        print('#{} {} {} {} {}'.format(tc, 13-len(s), 13-len(d), 13-len(h), 13-len(c)))
+```
+
+> 에러 출력하는것에 오래걸렸다. result 리스트를 만들어서 result[0] = len(s), result[1] = len(d) ,,, 이런식으로 하니까 런타임 에러가 떴다. 그래서 p값을 True로 초기화 하고 'ERROR'가 나오면 'ERROR' 출력하고 p를 false로 바꾼다음 마지막에 p가 True일때만 출력하도록 구성했다.  
