@@ -427,6 +427,38 @@ for tc in range(1, T+1):
 
 
 
+### 1219 길찾기
+
+- DFS 이용!! 나는 인접 행렬 이용해서 재귀로 풀었다.
+
+```python
+def DFS(v):
+    visted[v] = 1 # 방문했는거 1로
+    for i in range(100): # 행 다돌기
+        if visted[i] == 0 and arr[v][i] == 1: # 방문한 적 없고 연결된 간선이 있으면
+            DFS(i) # 재귀로 그 값 함수 돌리기
+
+for tc in range(1, 11):
+
+    num, E = map(int, input().split()) # E 는 간선수
+    nodes = list(map(int, input().split())) # 입력 받아서
+    box = [nodes[i*2:i*2+2] for i in range(len(nodes)//2)] # 2쌍씩 묶은걸로 이차원 리스트 만들기
+    arr = [[0] * 100 for _ in range(100)]
+
+    for i in range(E):
+        r = box[i][0] # 행은 두쌍씩 묶은 거에서 첫번째 요소이므로
+        c = box[i][1] # 열은 두쌍씩 묶은 것에서 두번째 요소이므로
+        arr[r][c] = 1 # 정점끼리 이어진 걸 1로. 유향이니까 한번만.
+
+    visted = [0] * 100 # 정점 개수만큼 만들어 주기
+
+    DFS(0)
+    # 도착 했는지 여부를 판별하는 거니까 마지막 정점에 요소를 출력. 1이면 갔고 2이면 못간거.
+    print('#{} {}'.format(tc, visted[-1]))
+```
+
+
+
 ## Studying individually
 
 ### 2072번
@@ -1222,3 +1254,131 @@ for tc in range(1, T+1):
 ```
 
 > 에러 출력하는것에 오래걸렸다. result 리스트를 만들어서 result[0] = len(s), result[1] = len(d) ,,, 이런식으로 하니까 런타임 에러가 떴다. 그래서 p값을 True로 초기화 하고 'ERROR'가 나오면 'ERROR' 출력하고 p를 false로 바꾼다음 마지막에 p가 True일때만 출력하도록 구성했다.  
+
+
+
+### 1289 원재의 메모리 복구
+
+```python
+T = int(input())
+for tc in range(1, T+1):
+    origin = list(map(int, input()))
+    zero = [0] * len(origin) # 초기화 상태
+    start = 0 # 원래 상태랑 초기화 상태가 다른 그 시작점 인덱스
+    cnt = 0
+    for i in range(len(origin)):
+        if origin[i] != zero[i]: # 다르면
+            start = i 
+            cnt += 1
+
+        for j in range(start, len(origin)):
+            zero[j] = origin[start] # 끝까지 덮어씌우기
+
+    print('#{} {}'.format(tc, cnt))
+
+```
+
+
+
+### 3499 퍼펙트 셔플
+
+- 처음에 [0] * N 리스트를 만들어 주고 거기에 인덱스 조건문 줘서 넣는걸로 하려고 했는데 쉽지 않았다. 
+- 그래서 카드 리스트를 반씩 나눈 리스트 두개를 만들고 그 두개 요소들을 하나씩 어펜드 해가는 방법으로 했다. 
+
+```python
+T = int(input())
+for tc in range(1, T+1):
+    N = int(input())
+    cards = list(input().split())
+    half1 = cards[:(N+1)//2]
+    half2 = cards[(N+1)//2:] + [''] # N이 홀수일때 는 뒤에 반이 개수가 하나 모자라니까 인덱스 에러 나는 것을 막기 위해
+    result = []
+
+    for i in range((N+1)//2):
+        result.append(half1[i])
+        result.append(half2[i])
+    print('#{}'.format(tc), *result)
+```
+
+
+
+### 1961 숫자 배열 회전
+
+- 처음에 어떻게 풀어야하지 고민하다가 90도 순회, 180도 순회, 270도 순회 리스트를 각각 만들어서 N만큼 쪼갠 리스트로 만든 다음 arr 배열을 만들어 준것에 넣었다. 
+
+```python
+T = int(input())
+for tc in range(1, 11):
+    N = int(input())
+    box = [list(input().split()) for _ in range(N)]
+    arr = [[0] * 3 for _ in range(N)]
+    # 90도 회전
+    s_90 = ''
+    for j in range(N):
+        for i in range(N):
+            s_90 += box[N-1-i][j]
+    s_90_ = [s_90[i*N:i*N+N] for i in range(N)] # N 만큼 쪼개기
+
+    # 180도
+    s_180 = ''
+    for i in range(N):
+        for j in range(N):
+            s_180 += box[N-1-i][N-1-j]
+    s_180_ = [s_180[i * N:i * N + N] for i in range(N)]
+
+    # 270도
+    s_270 = ''
+    for j in range(N):
+        for i in range(N):
+            s_270 += box[i][N-1-j]
+    s_270_ = [s_270[i * N:i * N + N] for i in range(N)]
+
+    for j in range(N):
+        for i in range(N):
+            if j == 0:
+                arr[i][0] = s_90_[i]
+            elif j == 1:
+                arr[i][1] = s_180_[i]
+            elif j == 2:
+                arr[i][2] = s_270_[i]
+
+    print('#{}'.format(tc))
+    for i in range(N):
+        print(*arr[i])
+```
+
+
+
+### 4871 그래프경로
+
+- DFS로 푸는 문제!! 인접행렬 이용해서 재귀로 풀었다. 
+
+```python
+def DFS(v):
+    visted[v] = 1 #  방문한거 1
+    for i in range(V+1): # 행 다돌아
+        if visted[i] == 0 and arr[v][i]: # 방문한적 없고, 그 행에 열 값이 있으면
+            DFS(i) # 다시 함수 돌리기 -> 이러면 이제 visited 에 방문한 곳에는 1이 찍힌다.
+
+T = int(input())
+for tc in range(1, T+1):
+    V, E = map(int,input().split())
+    arr = [[0]*(V+1) for _ in range(V+1)] # 0 으로 만들어진 행렬 만들어주기
+    for i in range(E): # 간선 수 만큼 돌려서 간선 있으면 행렬에 1 표시하기
+        a, b = map(int, input().split()) # 각 정점 인풋받고
+        arr[a][b] = 1 # 연결된거 1로 표시
+
+    S, G = map(int, input().split()) # 시작점과 도착점 인풋받기
+
+    visted = [0] * (V+1) 
+
+    DFS(S)
+    if visted[G] == 1:
+        ans = 1
+    else:
+        ans = 0
+    print('#{} {}'.format(tc, ans))
+```
+
+
+
