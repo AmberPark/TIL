@@ -459,6 +459,82 @@ for tc in range(1, 11):
 
 
 
+### 1224 계산기3(21.03.02)
+
+- stack 2
+
+```python
+for tc in range(1, 11):
+    length = int(input())
+    string = input()
+    stk = []
+    ans = ''
+    for i in range(len(string)):
+        if string[i].isdigit():  # 숫자이면 바로 ans 에 집어넣기
+            ans += string[i]
+        else:  # 숫자가 아니면 stk에 하나씩 넣기
+            if string[i] == '(':  # 여는 괄호는 우선순위가 제일 낮으니까 일단 무조건 넣기
+                stk.append(string[i])
+
+            if string[i] == '*':
+                while len(stk) > 0 and (stk[-1] == '*'):  # 스텍 마지막에 *없어질 때 까지 pop
+                    ans += stk.pop()  # 해서 ans 에 넣기
+                stk.append(string[i])  # 다 뽑고 우선순위 맞춘거니까 이제 stk에 넣기
+
+            elif string[i] == '+':
+                while len(stk) > 0 and (stk[-1] != '('):  # 여는 괄호 남을때 까지 빼기
+                    ans += stk.pop()
+                stk.append(string[i])
+
+            elif string[i] == ')':
+                while stk and stk[-1] != '(':  # 여는 괄호만 남을때 까지 pop
+                    ans += stk.pop()
+                # stk.append(string[i]) # ')'얘는 안넣어주니까
+                stk.pop()  # 이제 여는괄호도 빼기
+
+    # 마지막에 남은것 있으면 pop해서 ans 에 붙여줘야해
+    while stk:
+        ans += stk.pop()
+
+    total = []
+    for i in range(len(ans)):
+        if ans[i].isdigit():
+            total.append(ans[i])
+        elif ans[i] == '+':
+            a = int(total.pop())
+            b = int(total.pop())
+            total.append(a+b)
+        elif ans[i] == '*':
+            a = int(total.pop())
+            b = int(total.pop())
+            total.append(a*b)
+
+    print('#{}'.format(tc), total[-1])
+```
+
+
+
+### 1225 암호생성기(21.03.03)
+
+- Queue! 
+
+```python
+for tc in range(1, 11):
+    number = int(input())
+    passwords = list(map(int, input().split()))
+    while passwords[-1] != 0:
+        for i in range(1, 6):
+            q = passwords.pop(0)
+            if q-i > 0:
+                passwords.append(q-i)
+            else:
+                passwords.append(0) # 0 나오면 이제 끝내고 암호 생성!
+                break
+    print('#{}'.format(tc), *passwords)
+```
+
+
+
 ## Studying individually
 
 ### 2072번
