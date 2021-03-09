@@ -1,11 +1,21 @@
 # 가상환경 파이썬 만들기
 
 - 먼저 파일 만들고 거기서 
+
 - `python -m venv venv`
+
 - `ls`로 확인하고 `which python`으로 다시 확인
+
 - `source venv/Scripts/activate` 로 활성화 (or VS code 로 열기)
+
 - 이제 (venv)라고 뜸
+
 - deactivate 하면 venv 없어짐
+
+  예시
+
+  ![image-20210309223122619](READEME.assets/image-20210309223122619.png)
+
 - 설치할 것들에 내용 자동으로 설치하는 것은 `pip install -r requirements.txt`
 
 
@@ -60,3 +70,10 @@
 
 - `python manage.py runserver`
 
+
+
+
+
+- 익숙해지면 기본세팅 이렇게 할 것.
+
+![image-20210309223210754](READEME.assets/image-20210309223210754.png)
