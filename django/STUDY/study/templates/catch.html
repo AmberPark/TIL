@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}catch{% endblock title %}
+
+{% block content %}
+  <h1>catch</h1>
+  <h2>
+    {{ something }}
+  </h2>
+  <a href="{%url 'throw' %}">다시 던지러!</a>
+{% endblock content %}

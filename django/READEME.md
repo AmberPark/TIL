@@ -1,6 +1,6 @@
 # 가상환경 파이썬 만들기
 
-- 먼저 파일 만들고 거기서 
+- 먼저 폴더 만들고 거기서 
 
 - `python -m venv venv`
 
@@ -32,7 +32,7 @@
 3. 가상 동립환경을 활성화`$ source venv/Scripts/activate`한다.
 4. `$ pip install django` 를 통해 필요한 패키지들을 설치한다
 5. `$ django-admin startproject (프로젝트이름)` 명령어를 통해 프로젝트 초기화
-6. 프로젝트 진행
+6. 그 안으로 들어가서 vs 코드 열고 프로젝트 진행
 
 
 
@@ -63,6 +63,8 @@
 - `django-admin startproject firstpjt(파일명)`
 
 ### app들 생성
+
+만든 프로젝트 폴더 안에 들어가서 vs 코드 열기
 
 - `python manage.py startapp articles(파일명)`
 

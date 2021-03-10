@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Index page{% endblock title %}
+
+{% block content %}
+  <a href="{% url 'new' %}" class="btn btn-primary">new</a>
+<ul>
+  {% for student in students %}
+  <li>
+    {% comment %} <a href="/practice/{{ student.pk }}">{{ student.name }}</a> {% endcomment %}
+    <a href="{% url 'detail' student.pk %}">{{ student.name }}</a>  
+  </li>
+  {% endfor %}
+</ul>
+{% endblock content %}
