@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit page{% endblock title %}
+
+
+{% block content %}
+  <h1>This is Edit page</h1>
+  {% comment %} 액션 안에 url 얘랑 같은 말 /practice/{{ student.pk }}/update {% endcomment %}
+  <form action="{% url 'update' pk=student.pk %}" method="POST">
+    {% csrf_token %}
+    <div>
+      name: <input type="text" name="name" value="{{ student.name }}">
+    </div>
+    <div>
+      age: <input type="text" name="age" value="{{ student.age }}">
+    </div>
+    <div>
+      major: <input type="text" name="major" value="{{ student.major }}">
+    </div>
+
+   
+    hobby : <textarea name="hobby" cols="30" rows="10" value="{{ student.hobby }}"></textarea>
+  
+    <div>
+      <input type="submit", class="btn btn-primary">
+    </div>
+  </form>
+{% endblock content %}

@@ -8,6 +8,12 @@
   <h3>{{ student.age }} | {{ student.major }}</h3>
   <p>{{ student.hobby }}</p>
   <a href="{% url 'index' %}" class="btn btn-primary">Index</a>
+  <a href="{% url 'edit' student.pk %}" class="btn btn-secondary">Edit</a>
 
+  <form action="{% url 'delete' student.pk %}" method="POST" style="display: inline-block">
+  {% csrf_token %}
+    <input type="submit" class="btn btn-danger" onclick="return confirm('Delete? Really?')" value="Delete">
+  </form>
+  
 
 {% endblock content %}

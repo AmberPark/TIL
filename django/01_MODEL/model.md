@@ -1,4 +1,20 @@
+- POST method 를 쓰면 views 에서 `if request.method == 'POST':` 쓰고 GET을 다 POST로 바꿔주기 
 
+- ![image-20210311132536554](model.assets/image-20210311132536554.png)
+
+  ![image-20210311132605107](model.assets/image-20210311132605107.png)
+
+
+
+
+
+- html에서 form 안에 `method='POST'` 하고 밑에 `{% csrf_token %}` 꼭 적기! 안그러면 forbidden 페이지 뜸. 
+
+- ![image-20210311132631895](model.assets/image-20210311132631895.png)
+
+  ![image-20210311132844899](model.assets/image-20210311132844899.png)
+
+  ![image-20210311132902189](model.assets/image-20210311132902189.png)
 
 ![image-20210310200248442](model.assets/image-20210310200248442.png)
 
@@ -25,6 +41,18 @@
 ![image-20210310143748496](model.assets/image-20210310143748496.png)
 
 
+
+
+
+# DELETE
+
+shell_plus 에서 .delete() 하고 s = 0
+
+![image-20210311094944691](model.assets/image-20210311094944691.png)
+
+
+
+- 브라우저에서 delete 누르고 확인 창 뜨게하는거 : onclick="return confirm('message')"
 
 
 
