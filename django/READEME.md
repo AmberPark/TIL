@@ -16,6 +16,10 @@
 
   ![image-20210309223122619](READEME.assets/image-20210309223122619.png)
 
+- ![image-20210312100855508](READEME.assets/image-20210312100855508.png)
+
+  => 설치 해야할 것 requirements.txt 만들어서 넣는 명령어
+
 - 설치할 것들에 내용 자동으로 설치하는 것은 `pip install -r requirements.txt`
 
 
@@ -31,7 +35,7 @@
 2. 해당폴더로 이동해서 `$ python -m venv venv` 명령어를 통해 가상독립환경 폴더를 만든다.
 3. 가상 동립환경을 활성화`$ source venv/Scripts/activate`한다.
 4. `$ pip install django` 를 통해 필요한 패키지들을 설치한다
-5. `$ django-admin startproject (프로젝트이름)` 명령어를 통해 프로젝트 초기화
+5. `$ django-admin startproject (프로젝트이름) .` 명령어를 통해 프로젝트 초기화
 6. 그 안으로 들어가서 vs 코드 열고 프로젝트 진행
 
 

@@ -30,7 +30,51 @@ $ git push github master
 
 
 
+## git 리포 만들때
+
+1.  `$ touch .gitignore`만들기
+2.  `$ git init`
+3.  `$ touch .gitignore READ.md`
+4.  `$ git add .` -> `$ git commit` 그 다음에
+5.  `$ git remote add origin 주소`
+6.  ` $ git push origin master` 
+
+## 받아올때
+
+두번째 페어는 
+
+![image-20210312131419232](README.assets/image-20210312131419232.png)
 
 
 
 
+
+
+
+
+
+
+
+1. `$ touch .gitignore`만들기 , vs code 들어가기
+
+2. `$ git init`
+
+3. python -m venv venv
+
+4. source venv/Scripts/activete
+
+5. pip install django django_extensions
+
+6. pip freeze > requirements.txt (페어는 pip install -r requirements.txt 로 받아옴)
+
+7. (`$ touch .gitignore READ.md` => 얘 1번에서 같이하기)
+
+   
+
+8. `$ git remote add origin 주소`(클론 눌러서 주소 복사한거)
+
+9. git remote -v
+
+10. `$ git add .` -> `$ git commit -m message` 
+
+11. ` $ git push origin master` 
