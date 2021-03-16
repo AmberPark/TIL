@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>Detail</h1>
-<h2>{{ article.title }}</h2>
+<h2>{{ article.pk }} : {{ article.title }}</h2>
 <p>{{ article.content }}</p>
 <div>
   <a href="{% url 'index' %}">Index</a>
