@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Student
 # Create your views here.
 # create
@@ -27,7 +27,8 @@ def index(request):
     return render(request, 'orm_practice/index.html', context)
 
 def detail(request, pk):
-    student = Student.objects.get(pk=pk)
+    # student = Student.objects.get(pk=pk)
+    student = get_object_or_404(Student, pk=pk)
     context = {
         'student': student,
     }

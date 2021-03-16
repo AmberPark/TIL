@@ -68,3 +68,14 @@ shell_plus 에서 .delete() 하고 s = 0
 - 어드민 사이트 에서 보일 디스플레이 설정
 
 ![image-20210310151915025](model.assets/image-20210310151915025.png)
+
+
+
+
+
+# 데이터 다 날리고 처음부터 하고싶을 때
+
+- db 날리고, migrations 안에 생긴 initial.py들도 지워주기.
+- ![image-20210316095712826](model.assets/image-20210316095712826.png)
+
+- 다시 처음부터 makemigrations, migrate 하기
