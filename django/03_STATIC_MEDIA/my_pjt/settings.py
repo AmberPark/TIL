@@ -124,3 +124,8 @@ STATIC_URL = '/static/'
 
 # 추가로 해당위치의 static 폴더도 뒤져보아라
 STATICFILES_DIRS = [BASE_DIR / 'static', ]
+
+# 업로드 되는 파일을 여기에 저장되도록
+MEDIA_ROOT = BASE_DIR / 'media'
+# url 패턴
+MEDIA_URL = '/media/'

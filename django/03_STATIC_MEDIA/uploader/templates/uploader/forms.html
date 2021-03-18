@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST" enctype="mulipart/form-data"> <!--enctype : 파일 업로드 하려면 써야함-->
+  {% csrf_token %}
+  {{ form.as_p}}
+  <input type="submit">
+</form>
+
+{% endblock content %}
