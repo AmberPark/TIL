@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+  <link rel="stylesheet" href="{% static 'uploader/css/main.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+<h1>Index page</h1>
+
+<img src="/static/uploader/dolly.jpg" alt="welcome">
+<img src="{% static 'uploader/images/dolly.jpg' %}" alt="HI">
+{% endblock content %}
