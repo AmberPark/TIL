@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Edit</h1>
+<form method="POST"> <!--액션 없으면 제자리로 보내는거라서 액션 없어도 되는거-->
+  {% csrf_token %}
+  {{ form.as_p }} <!--.as_p : p태그-->
+  <input type="submit">
+</form>
+
+{% endblock content %}

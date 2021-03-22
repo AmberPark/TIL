@@ -1,6 +1,6 @@
 from django.db import models
-from imagekit.models import ProcessedImageField
-from imagekit.processors import Thumbnail
+from imagekit.models import ProcessedImageField, ImageSpecField
+from imagekit.processors import Thumbnail, ResizeToFill
 
 class Article(models.Model):
     title = models.CharField(max_length=100)

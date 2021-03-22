@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  {% if request.resolver_match.url_name == 'create' %} <!--여기 url에는 앱네임 안적어줘야하네-->
+    <div class="fs-3 text-center bg-info p-3">Create</div>
+  {% else %}
+    <div class='fs-3 text-center bg-success p-3'>Update</div>
+  {% endif %}
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="submit!">
+  </form>
+</div>
+{% endblock  %}
