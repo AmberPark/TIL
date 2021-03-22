@@ -5,9 +5,9 @@
 <h2>{{ article.pk }} : {{ article.title }}</h2>
 <p>{{ article.content }}</p>
 <div>
-  <a href="{% url 'index' %}">Index</a>
+  <a href="{% url 'articles:index' %}">Index</a>
 </div>
 <div>
-  <a href="{% url 'edit' article.pk %}">Edit</a>
+  <a href="{% url 'articles:edit' article.pk %}">Edit</a>
 </div>
 {% endblock content %}

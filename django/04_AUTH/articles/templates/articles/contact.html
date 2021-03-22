@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>Contact</h1>
-<form action="{% url 'contact' %}" method="POST">
+<form action="{% url 'articles:contact' %}" method="POST">
   {% csrf_token %}
   {{ contact_form.as_p }} <!--.as_p : p태그-->
   <input type="submit">

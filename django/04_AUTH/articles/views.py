@@ -19,7 +19,7 @@ def contact(request):
 
         # print(contact_form)
         print(contact_form.is_valid())
-        return redirect('contact')
+        return redirect('articles:contact')
     
 
 
@@ -41,7 +41,7 @@ def new(request):
             # 유효하다면 저장
             article = form.save()      
             # 저장한 article 의 상세보기 페이지로 redirect
-            return redirect('detail', article_pk = article.pk)
+            return redirect('articles:detail', article_pk = article.pk)
         else: # 유효하지 않다면 기존의 잘못된 data 를 담은 form (38 번째 줄)을 담고
             context = {'form': form}
             # html 에 담아서 전송
@@ -67,7 +67,7 @@ def edit(request, article_pk):
         form = ArticleForm(request.POST, instance=article)
         if form.is_valid():
             article = form.save()
-            return redirect('detail', article.pk)
+            return redirect('articles:detail', article.pk)
     elif request.method == 'GET':
         # 기존 게시를 내용을 포함한 html 을 만들기 위해 instance 추가
         form = ArticleForm(instance=article)
