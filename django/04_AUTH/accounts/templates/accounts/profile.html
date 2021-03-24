@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ user_profile.username }}</h1>
+<ul>
+  <li>Email: {{ user_profile.email }}</li>
+  <li>Last Name: {{ user.last_name }}</li>
+  <li>First Name: {{ user.first_name }}</li>
+  <li>Address: {{ user.address }}</li>
+</ul>
+<!--request.user == user -->
+
+{% if request.user == user_profile %}
+<div>
+<form action="" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <hr>
+  <button class="btn btn-primary">정보수정</button>
+</form>
+<div>
+<a href="{% url 'accounts:change_password' %}" class="btn btn-warning"></a>
+</div>
+  {% comment %} <div class="d-inline-block">
+    <a href="{% url '' %}" class="btn btn-primary">개인정보 수정</a>
+  </div> {% endcomment %}
+  {% comment %} <form action="#" method="POST">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="회원탈퇴">
+  </form> {% endcomment %}
+
+  {% comment %} 폼태그 안에서는 버튼이 인풋처럼 동작 {% endcomment %}
+  <form action="{% url 'accounts:withdraw' %}" method="POST">
+  {% csrf_token %}
+  <button class="btn btn-danger" onclick="return confirm('ㅠㅠ')">회원탈퇴</button>
+  </form>
+</div>
+{% endif %}
+
+
+{% endblock content %}

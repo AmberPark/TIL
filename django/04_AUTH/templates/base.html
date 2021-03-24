@@ -8,6 +8,7 @@
   <title>My app</title>
 </head>
 <body>
+{% include '_navbar.html' %}
 <div class="container">
   <h2>{{ user }}</h2>
   {% block content %}{% endblock content %}
@@ -15,3 +16,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+{% comment %} DRL 예약 변수명 ( View 에서 넘겨준 context 가 없이도 동작)
+- request (요청관련 내용)
+- reauest.user (현재 요청을 보낸 사용자에 대한 내용)
+- user => request.user 의 줄임말(shortcut) {% endcomment %}

@@ -114,3 +114,15 @@
   ![image-20210311133546189](READEME.assets/image-20210311133546189.png)
 
   ![image-20210311133607414](READEME.assets/image-20210311133607414.png)
+
+
+
+# migrates 초기화 입력
+
+- migraions폴더안에 0000_initial 파일 지우기 => db.sqlite3 지우기  => 다시 makemigrations, migrate
+
+
+
+![image-20210324174202722](READEME.assets/image-20210324174202722.png)
+
+('-updated_at') => 내가 원하는대로 정렬하고싶을때

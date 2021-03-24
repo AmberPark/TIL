@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_safe, require_POST, require_http_methods
+from django.contrib.auth.decorators import login_required
 from .models import Article
 from .forms import ContactForm, ArticleForm
 """
@@ -21,8 +23,8 @@ def contact(request):
         print(contact_form.is_valid())
         return redirect('articles:contact')
     
-
-
+@login_required # not logged_in 일 경우 무조건 '/accounts/login/'으로 redirect 한다.
+@require_http_methods(['GET', 'POST'])
 def new(request):
     # 사용자 요청이 GET일 경우
     if request.method == 'GET':
@@ -99,4 +101,6 @@ def edit(request, article_pk):
 #     return redirect()
 
 def delete(request, article_pk):
-    return redirect()
+    article = get_object_or_404(Article, pk=article_pk)
+    article.delete()
+    return redirect('articles:index')
