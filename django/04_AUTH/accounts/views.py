@@ -57,7 +57,7 @@ def login(request):
             # 로그인을 시켜야하는데,,,
             # 세션 create
             auth_login(request, form.get_user())
-            # 로그인 안한 상태에서 create 눌렀을때 login 페이지로 오고 로그인 하고 나면 바로 글 쓰는 페이지록 가도록
+            # 로그인 안한 상태에서 create 눌렀을때 login 페이지로 오고 로그인 하고 나면 바로 글 쓰는 페이지록 가도록(?)
             next_url = request.GET.get('next')        
             # none이 나올수가 있는거를 or 앞에 둬야함
             return redirect(next_url or 'articles:index')
