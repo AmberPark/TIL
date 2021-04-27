@@ -36,3 +36,18 @@
 
 - 아래처럼 json이 템플릿 형태로 나옴
 - ![image-20210426105813087](TIL.assets/image-20210426105813087.png)
+
+
+
+
+
+- create
+  - 위에 `from rest_framework import status`하고 
+  
+  - ![image-20210427105244017](TIL.assets/image-20210427105244017.png)
+  
+  - 하면
+  
+  - ![image-20210427105339426](TIL.assets/image-20210427105339426.png)
+  
+    이런식으로 나옴
