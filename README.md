@@ -15,7 +15,7 @@ $ git push origin master
 ```
 $ git branch branch-name => 새로운 branch 생성
 $ git switch(or checkout) branch-name => 전환
-$ git switch -c branch-name => 새로운 branch 생성과 함께 전환
+$ git switch -c branch-name => 새로운 branch 생성과 함께 전환 !! => add, push 하고 push origin 내브랜치이름 => lab에서 merge 
 $ git branch -d branch-name => branch delete
 $ git branch -D branch-name => 강제로 delete
 $ git merge branch-name => branch 병합. ex)master과 home-page를 같은것으로 만들겠다.
@@ -95,3 +95,23 @@ $ git push github master
 - 과거로 돌아가고싶달 -> `git reset -- hard <가고자 하는 로그>` => 완전히 과거로 돌어가는거.(코드도 바뀜)
 - `git reset --soft <가고자 하는 로그>` => 커밋의 시점은 과거로. add한 기록은 남겨두고.
 - `git reset <가고자하는 로그>`(default 값이 --mixed) => add 전단계까지 남아있음. 
+
+
+
+
+
+
+
+##  페어프로그래밍 git branch
+
+1. 내 차례가 되면, 브랜치를 생성/이동한다. (`$ git switch -c <branch_name>`)
+2. 이동한 브랜치에서 작업을 진행한다.
+3. 주기적으로 커밋을 진행한다(N/D 모두 자유롭게 커밋 시점 이야기)
+4. 차례가 끝나면, 최종 커밋 이후, `$ git push origin <branch_name>` 으로 PUSH
+5. gitlab 에 가서 새로고침 이후, create merge request 를 진행
+6. title 과 description 은 자유롭게 작성
+7. assignee 도 자유롭게 지정
+8. `remove source branch when merge request is accepted` 는 체크
+9. submit merge request 버튼으로 요청 보내기
+10. 생성된 merge request 는 다음사람이 병합해주기
+11. 다음 사람은, 1번부터 시작
