@@ -1,3 +1,9 @@
+
+
+
+
+
+
 # Django 끝자락
 
 ## REST API
@@ -69,3 +75,30 @@
   - 이벤트의 전파를 막지 않고 이벤트의 기본 동작만 중단
 - 비어있는 배열은 True
   - if ([]) {console.log('hi')} => True
+
+
+
+
+
+### 심화시작.0503
+
+- blocking 과 non-blocking 의 차이
+
+
+
+- call back 함수
+- 	 ![image-20210503143214228](TIL.assets/image-20210503143214228.png)
+
+- greeting 3개 다 같은말
+- ![image-20210503163952695](TIL.assets/image-20210503163952695.png)
+
+
+
+
+
+
+
+- dogImage.src가 axios 밖으로 나오면 사진 안나옴. 실행 순서가 달라져서. 
+
+- ![image-20210503173245049](TIL.assets/image-20210503173245049.png)
+
