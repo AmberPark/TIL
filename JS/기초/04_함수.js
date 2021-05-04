@@ -45,3 +45,25 @@ cube = n => n ** 3
   
 // 3번 적용 불가능한 경우
 mul = (n1, n2) => n1 * n2
+
+
+// Default Arguments
+function withOutDefaultArg(a, b) {
+  if (a !== undefined) {
+    a = 0
+  }
+  if (b === undefined) {
+    b = 0
+  }
+  a + b
+}
+
+function withDefaultArg(a, b) {
+  if (a !== undefined) {
+    a = 0
+  }
+  if (b === undefined) {
+    b = 0
+  }
+  a + b
+}
