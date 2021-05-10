@@ -115,3 +115,4 @@ $ git push github master
 9. submit merge request 버튼으로 요청 보내기
 10. 생성된 merge request 는 다음사람이 병합해주기
 11. 다음 사람은, 1번부터 시작
+
