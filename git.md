@@ -116,3 +116,96 @@ $ git push github master
 10. 생성된 merge request 는 다음사람이 병합해주기
 11. 다음 사람은, 1번부터 시작
 
+
+
+
+
+
+
+
+
+
+
+
+
+model
+
+```python
+class UpcomingMovie(models.Model):
+    title = models.CharField(max_length=100)
+    poster_path = models.CharField(max_length=200)
+    genre = models.TextField()
+    overview = models.TextField()
+    # original_language = models.CharField(max_length=50)
+    release_date = models.CharField(max_length=50)
+    # liked_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_movies", blank=True)
+    def __str__(self):
+        return self.title
+```
+
+serializer
+
+```python
+class UpcomingMovieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UpcomingMovie
+        fields = '__all__'
+
+class UpcomingMovieListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UpcomingMovie
+        fields = '__all__'
+```
+
+
+
+view
+
+```python
+
+@api_view(['GET'])
+def upcoming_create(request):
+    m_data={}
+    results = []    
+    for num in range(1, 20):
+        up_url = f'http://api.themoviedb.org/3/movie/upcoming?api_key={api_key}&language=en-US&page={num}'
+        res = requests.get(up_url) 
+        movie = res.json()
+        results.append(movie)   
+    # m_data["results"] = results
+    # print(results)
+    # print(results[0].get('results')[0])
+    all_movies = []
+    movies = {}
+    for n in range(20):
+        try:
+            movies["genre"] = results[n].get("results")[n].get("genre_ids")[0]
+            movies["title"] = results[n].get("results")[n].get("title")
+            movies["poster_path"] = results[n].get("results")[n].get("poster_path")
+            movies["overview"] = results[n].get("results")[n].get("overview")
+            movies["release_date"] = results[n].get("results")[n].get("release_date")
+    
+        
+            all_movies.append(movies)
+            # print(all_movies)
+            serializers = UpcomingMovieListSerializer(data=movies)
+            if serializers.is_valid(raise_exception=True):
+                serializers.save()
+                # print(serializers)
+        
+        except:
+            pass
+    
+    return Response(serializers.data, status=status.HTTP_200_OK)
+    # return HttpResponse("upcoming!!!")
+
+
+
+
+@api_view(['GET'])
+def upcoming_movies_list(request):
+    upcoming_movies = UpcomingMovie.objects.all()
+    serializers = UpcomingMovieListSerializer(upcoming_movies, many=True)
+    return Response(serializers.data, status=status.HTTP_200_OK)
+```
+
