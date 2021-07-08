@@ -1,8 +1,13 @@
-from collections import deque
+# 어렵네
+import sys
 n = int(input())
-lst = deque()
-for _ in range(n):
-    lst.append(int(input()))
+chk = [0] * 10001
+for i in range(n):
+    input_n = int(sys.stdin.readline())
 
-for i in sorted(lst):
-    print(i)
+    chk[input_n] += 1
+
+for i in range(10001):
+    if chk[i] != 0:
+        for j in range(chk[i]):
+            print(i)
