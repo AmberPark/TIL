@@ -1,10 +1,11 @@
 n = int(input())
+
 lst = []
 for _ in range(n):
-    x, y = map(int, input().split())
-    lst.append([x, y])
+    xy = list(map(int, input().split()))
+    lst.append([xy[1], xy[0]])
+# 람다쓰니까 시간초과
+lst.sort()
 
-
-lst.sort(key=lambda x: (x[1], x[0]))
 for i in lst:
-    print(*i)
+    print(i[1], i[0])
