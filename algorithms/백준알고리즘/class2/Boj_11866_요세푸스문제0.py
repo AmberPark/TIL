@@ -1,14 +1,23 @@
+from collections import deque
+
+q = deque()
+ans = []
+
 n, k = map(int, input().split())
 
-lst = [i for i in range(1, n+1)] * (1000//n)
-res = []
-print(lst)
-for j in range(1, n+1):
-    res.append(lst[k*j-1])
-    lst.remove(lst[k*j-1])
+for i in range(1, n+1):
+    q.append(i)
 
+while q:
+    for i in range(k-1):
+        q.append(q.popleft())
+    ans.append(q.popleft())
 
-    print(res)
-
+print('<', end="")
+for i in range(len(ans)-1):
+    print(ans[i], end='')
+    print(', ', end='')
+print(ans[-1], end='')
+print('>')
 
 
